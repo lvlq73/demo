@@ -9,6 +9,7 @@ import com.llq.netty.scan.RpcApi;
  */
 @RpcApi(alias = "helloService", serviceId = "service_test")
 public interface IHelloService {
+
     String hello(String name);
 
     int sum(int one, int two);
