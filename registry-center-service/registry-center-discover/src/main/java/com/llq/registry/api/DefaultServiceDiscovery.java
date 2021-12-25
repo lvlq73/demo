@@ -41,11 +41,16 @@ public class DefaultServiceDiscovery implements IServiceDiscovery {
 
     @Override
     public void registerService(String serviceId, Address address) {
-        HttpResult result = RestTemplateSingleton.getInstance().postForObject(url + "/registry/registerService",
-                new ServiceInfo(serviceId, address, 0), HttpResult.class);
-        if (!String.valueOf(ResultEnum.SUCCESS.getCode()).equals(result.code)) {
-            logger.error("{} {}, registry service is fail; {}", serviceId, address.host + ":" + address.port, result.message);
-        } else {
+        try {
+            HttpResult result = RestTemplateSingleton.getInstance().postForObject(url + "/registry/registerService",
+                    new ServiceInfo(serviceId, address, 0), HttpResult.class);
+            if (!String.valueOf(ResultEnum.SUCCESS.getCode()).equals(result.code)) {
+                logger.error("{} {}, registry service is fail; {}", serviceId, address.host + ":" + address.port, result.message);
+            } else {
+                serviceWatch.heartbeatWatch(new ServiceInfo(serviceId, address, 0));
+            }
+        } catch (Exception e) {
+            logger.error("请求异常", e);
             serviceWatch.heartbeatWatch(new ServiceInfo(serviceId, address, 0));
         }
     }
