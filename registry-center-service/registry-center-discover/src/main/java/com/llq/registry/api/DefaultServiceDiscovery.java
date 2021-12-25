@@ -2,7 +2,6 @@ package com.llq.registry.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.llq.registry.client.ServiceAddressCache;
 import com.llq.registry.client.ServiceWatch;
 import com.llq.registry.enums.ResultEnum;
 import com.llq.registry.http.RestTemplateSingleton;
@@ -11,7 +10,6 @@ import com.llq.registry.pojo.HttpResult;
 import com.llq.registry.pojo.ServiceInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
